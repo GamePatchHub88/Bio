@@ -382,3 +382,36 @@ h1 {
         transition-duration: 0.01ms !important;
     }
 }
+
+
+/* --- الإضافات الجديدة للثيم --- */
+
+/* جعل البطاقات تترتب فوق بعضها بمسافات متساوية */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* المسافة بين البطاقتين */
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* عنوان بطاقة رمضان */
+.ramadan-title {
+    color: #ffd700;
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* تأثير زر الأدعية (ذهبي) */
+.y-ramadan:hover {
+    border-color: #ffd700 !important;
+    background: linear-gradient(45deg, #ffd700, #b8860b) !important;
+    color: #000 !important;
+    transform: scale(1.05) translateX(-5px) !important;
+}
+
+/* تأثير زر التهنئة (أرجواني ملكي) */
+.y-greet:hover {
+    border-color: #e0aaff !important;
+    background: linear-gradient(45deg, #
