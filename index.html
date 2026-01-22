@@ -582,6 +582,133 @@
         .footer p {
             margin: 0.5rem 0;
         }
+
+                /* Eid Al-Fitr Card */
+        .eid-card {
+            position: relative;
+        }
+
+        .eid-glow {
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, #10b981, #3b82f6, #10b981);
+            border-radius: 1rem;
+            filter: blur(20px);
+            opacity: 0.75;
+            animation: glow-pulse 2s infinite;
+        }
+
+        .eid-inner {
+            position: relative;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            border: 2px solid #10b981;
+            padding: 2rem;
+        }
+
+        .eid-title {
+            font-size: 1.875rem;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(135deg, #fbbf24, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .eid-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .eid-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .eid-link {
+            position: relative;
+            display: block;
+            text-decoration: none;
+        }
+
+        .eid-link-glow {
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, #10b981, #3b82f6);
+            border-radius: 0.75rem;
+            filter: blur(15px);
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .eid-link:hover .eid-link-glow {
+            opacity: 1;
+        }
+
+        .eid-link-inner {
+            position: relative;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+
+        .eid-link:hover .eid-link-inner {
+            border-color: #10b981;
+            transform: scale(1.05);
+        }
+
+        .eid-emoji {
+            font-size: 2.5rem;
+        }
+
+        .eid-text {
+            font-size: 1.125rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+                /* Footer */
+        .footer {
+            margin-top: 3rem;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            margin: 0.75rem 0;
+            color: #9ca3af;
+            font-size: 0.875rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer p:first-child {
+            font-weight: 600;
+            background: linear-gradient(135deg, #06b6d4, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1rem;
+        }
+
+        .footer p:hover {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -844,10 +971,40 @@
             </div>
         </div>
 
+        
+        <!-- Eid Al-Fitr Card -->
+        <div class="eid-card">
+            <div class="eid-glow"></div>
+            <div class="eid-inner">
+                <h2 class="eid-title">
+                    <span style="font-size: 2.5rem;">🕌</span>
+                    زاوية عيد الفطر المبارك
+                    <span style="font-size: 2.5rem;">✨</span>
+                </h2>
+                <div class="eid-links">
+                    <a href="https://gamepatchhub88.github.io/-----/" class="eid-link" target="_blank">
+                        <div class="eid-link-glow"></div>
+                        <div class="eid-link-inner">
+                            <span class="eid-emoji">🤲</span>
+                            <span class="eid-text">أدعية عيد الفطر المبارك</span>
+                        </div>
+                    </a>
+                    <a href="https://gamepatchhub88.github.io/m/" class="eid-link" target="_blank">
+                        <div class="eid-link-glow"></div>
+                        <div class="eid-link-inner">
+                            <span class="eid-emoji">🎉</span>
+                            <span class="eid-text">تهنئة العيد باسمي</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Footer -->
         <div class="footer">
             <p>⚡ Powered by Epic Gaming Technology ⚡</p>
-            <p>© 2024 Mohamed Ahmed - All Rights Reserved</p>
+            <p>© 2025 Mohamed Ahmed - All Rights Reserved</p>
         </div>
     </div>
 
