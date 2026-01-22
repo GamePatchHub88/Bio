@@ -3,75 +3,904 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohamed Ahmed | M-TECH</title>
-    <link rel="stylesheet" href="style.css">
+    <title>محمد أحمد حلمي | Epic Gaming Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Scanlines */
+        .scanlines {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 136, 0.05) 2px,
+                rgba(0, 255, 136, 0.05) 4px
+            );
+        }
+
+        /* Mouse Glow */
+        .mouse-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+            filter: blur(80px);
+            opacity: 0.2;
+            background: radial-gradient(circle, #00ff88, #00d4ff, #ff00ff);
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header Stats */
+        .header-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .level-badge {
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            font-size: 1.25rem;
+            border: 2px solid #a855f7;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+            animation: glow-pulse 2s infinite;
+        }
+
+        .xp-badge {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid #06b6d4;
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skull-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .skull-icon {
+            color: #ef4444;
+            animation: bounce 1s infinite;
+        }
+
+        .skull-icon:nth-child(2) { animation-delay: 0.2s; }
+        .skull-icon:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(168, 85, 247, 0.5); }
+            50% { box-shadow: 0 0 50px rgba(168, 85, 247, 1); }
+        }
+
+        /* Main Card */
+        .main-card {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .card-glow {
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, #a855f7, #ec4899, #06b6d4);
+            border-radius: 1rem;
+            filter: blur(20px);
+            opacity: 0.75;
+            animation: glow-rotate 3s linear infinite;
+        }
+
+        @keyframes glow-rotate {
+            0% { filter: blur(20px) hue-rotate(0deg); }
+            100% { filter: blur(20px) hue-rotate(360deg); }
+        }
+
+        .card-inner {
+            position: relative;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            border: 2px solid #a855f7;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .card-inner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l25.98 15v30L30 60 4.02 45V15z' fill='%2300ff88' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background-size: 30px 30px;
+            opacity: 0.05;
+        }
+
+        .profile-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .profile-content {
+                flex-direction: row;
+            }
+        }
+
+        /* Avatar */
+        .avatar-wrapper {
+            position: relative;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            inset: -16px;
+            background: linear-gradient(45deg, #06b6d4, #a855f7, #ec4899);
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0.75;
+            animation: spin-slow 8s linear infinite;
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .avatar {
+            position: relative;
+            width: 192px;
+            height: 192px;
+            border-radius: 50%;
+            border: 4px solid #06b6d4;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(6, 182, 212, 0.5);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trophy-badge {
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, #fbbf24, #f97316);
+            border-radius: 50%;
+            padding: 0.75rem;
+            border: 4px solid #000;
+        }
+
+        /* Profile Info */
+        .profile-info {
+            flex: 1;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .profile-info {
+                text-align: right;
+            }
+        }
+
+        .profile-name {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #06b6d4, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #a855f7;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .profile-title {
+                justify-content: flex-end;
+            }
+        }
+
+        .profile-location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #06b6d4;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .profile-location {
+                justify-content: flex-end;
+            }
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: #06b6d4;
+            transform: scale(1.05);
+        }
+
+        .stat-icon {
+            color: #06b6d4;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .skill-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-bar {
+            height: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 9999px;
+            overflow: hidden;
+            border: 1px solid #374151;
+        }
+
+        .skill-progress {
+            height: 100%;
+            border-radius: 9999px;
+            position: relative;
+            overflow: hidden;
+            transition: width 1s ease;
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Social Links */
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .link-card {
+            position: relative;
+            display: block;
+            text-decoration: none;
+        }
+
+        .link-glow {
+            position: absolute;
+            inset: -4px;
+            border-radius: 0.75rem;
+            filter: blur(15px);
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .link-card:hover .link-glow {
+            opacity: 1;
+        }
+
+        .link-inner {
+            position: relative;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+
+        .link-card:hover .link-inner {
+            transform: scale(1.05);
+        }
+
+        .link-icon {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .link-content {
+            flex: 1;
+        }
+
+        .link-label {
+            font-weight: bold;
+            font-size: 1.125rem;
+            color: #fff;
+        }
+
+        .link-subtitle {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        .link-arrow {
+            color: #6b7280;
+            transition: color 0.3s;
+        }
+
+        .link-card:hover .link-arrow {
+            color: #fbbf24;
+        }
+
+        /* Ramadan Card */
+        .ramadan-card {
+            position: relative;
+        }
+
+        .ramadan-glow {
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, #ca8a04, #ea580c, #ca8a04);
+            border-radius: 1rem;
+            filter: blur(20px);
+            opacity: 0.75;
+            animation: glow-pulse 2s infinite;
+        }
+
+        .ramadan-inner {
+            position: relative;
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.8), rgba(30, 58, 138, 0.8));
+            backdrop-filter: blur(20px);
+            border-radius: 1rem;
+            border: 2px solid #eab308;
+            padding: 2rem;
+        }
+
+        .ramadan-title {
+            font-size: 1.875rem;
+            font-weight: 900;
+            text-align: center;
+            background: linear-gradient(135deg, #fbbf24, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .ramadan-links {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .ramadan-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .ramadan-link {
+            position: relative;
+            display: block;
+            text-decoration: none;
+        }
+
+        .ramadan-link-glow {
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, #eab308, #f97316);
+            border-radius: 0.75rem;
+            filter: blur(15px);
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .ramadan-link:hover .ramadan-link-glow {
+            opacity: 1;
+        }
+
+        .ramadan-link-inner {
+            position: relative;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            border: 2px solid rgba(234, 179, 8, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+
+        .ramadan-link:hover .ramadan-link-inner {
+            border-color: #eab308;
+            transform: scale(1.05);
+        }
+
+        .ramadan-emoji {
+            font-size: 2.5rem;
+        }
+
+        .ramadan-text {
+            font-size: 1.125rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="bg-animation">
-        <ul class="circles">
-            <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-        </ul>
-    </div>
+    <!-- Animated Background -->
+    <div class="bg-animation" id="bgAnimation"></div>
+    
+    <!-- Scanlines -->
+    <div class="scanlines"></div>
+    
+    <!-- Mouse Glow -->
+    <div class="mouse-glow" id="mouseGlow"></div>
 
-    <div class="wrapper">
+    <div class="container">
+        <!-- Header Stats -->
+        <div class="header-stats">
+            <div>
+                <div class="level-badge" id="levelBadge">LEVEL 1</div>
+            </div>
+            <div class="xp-badge">
+                <i class="fas fa-star" style="color: #fbbf24;"></i>
+                <span id="xpCounter">0</span> XP
+            </div>
+            <div class="skull-group">
+                <i class="fas fa-skull skull-icon"></i>
+                <i class="fas fa-skull skull-icon"></i>
+                <i class="fas fa-skull skull-icon"></i>
+            </div>
+        </div>
+
+        <!-- Main Profile Card -->
         <div class="main-card">
-            <div class="glow-layer"></div>
+            <div class="card-glow"></div>
             <div class="card-inner">
-                <div class="profile-header">
-                    <div class="img-wrapper">
-                        <img src="1.jpg" alt="محمد أحمد حلمي">
+                <div class="profile-content">
+                    <!-- Avatar -->
+                    <div class="avatar-wrapper">
+                        <div class="avatar-glow"></div>
+                        <div class="avatar">
+                            <img src="1.jpg" alt="محمد أحمد حلمي">
+                        </div>
+                        <div class="trophy-badge">
+                            <i class="fas fa-trophy" style="color: #fff; font-size: 1.5rem;"></i>
+                        </div>
                     </div>
-                    <h1>محمد أحمد حلمي</h1>
-                    <div class="tags">
-                        <span>Front-end Developer</span>
-                        <span>Python Developer</span>
+
+                    <!-- Profile Info -->
+                    <div class="profile-info">
+                        <h1 class="profile-name">محمد أحمد حلمي</h1>
+                        <div class="profile-title">
+                            <i class="fas fa-gamepad"></i>
+                            <span>Fullstack Developer</span>
+                        </div>
+                        <div class="profile-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>الزقازيق - أبو نجاح</span>
+                        </div>
+
+                        <!-- Stats Grid -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-code" style="font-size: 1.25rem;"></i>
+                                </div>
+                                <div class="stat-label">Skills</div>
+                                <div class="stat-value">99+</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-bullseye" style="font-size: 1.25rem;"></i>
+                                </div>
+                                <div class="stat-label">Accuracy</div>
+                                <div class="stat-value">100%</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-fire" style="font-size: 1.25rem;"></i>
+                                </div>
+                                <div class="stat-label">Streak</div>
+                                <div class="stat-value">365d</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-bolt" style="font-size: 1.25rem;"></i>
+                                </div>
+                                <div class="stat-label">Power</div>
+                                <div class="stat-value">MAX</div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="address"><i class="fas fa-map-marker-alt"></i> الزقازيق - أبو نجاح</p>
                 </div>
 
-                <div class="links-list">
-                    <a href="https://gamepatchhub88.github.io/M-TECH1/" class="link-item y3" target="_blank">
-                        <i class="fas fa-laptop-code"></i> موقع المشاريع
+                <!-- Skills -->
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span style="color: #00ff88; font-weight: bold;">Front-end</span>
+                            <span style="color: #9ca3af;">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%; background-color: #00ff88; box-shadow: 0 0 20px #00ff88;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span style="color: #00d4ff; font-weight: bold;">Python</span>
+                            <span style="color: #9ca3af;">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%; background-color: #00d4ff; box-shadow: 0 0 20px #00d4ff;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span style="color: #ff00ff; font-weight: bold;">React</span>
+                            <span style="color: #9ca3af;">92%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%; background-color: #ff00ff; box-shadow: 0 0 20px #ff00ff;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span style="color: #ffd700; font-weight: bold;">TypeScript</span>
+                            <span style="color: #9ca3af;">88%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%; background-color: #ffd700; box-shadow: 0 0 20px #ffd700;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="links-grid">
+            <a href="https://gamepatchhub88.github.io/M-TECH1/" class="link-card" target="_blank">
+                <div class="link-glow" style="background: linear-gradient(45deg, #00ff88, #00ff88);"></div>
+                <div class="link-inner" style="border-color: rgba(0, 255, 136, 0.3);">
+                    <div class="link-icon" style="background-color: rgba(0, 255, 136, 0.2); color: #00ff88;">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-label">موقع المشاريع</div>
+                        <div class="link-subtitle">Click to visit</div>
+                    </div>
+                    <i class="fas fa-bolt link-arrow"></i>
+                </div>
+            </a>
+
+            <a href="https://www.youtube.com/@M-Tech11_dev" class="link-card" target="_blank">
+                <div class="link-glow" style="background: linear-gradient(45deg, #ff0000, #ff0000);"></div>
+                <div class="link-inner" style="border-color: rgba(255, 0, 0, 0.3);">
+                    <div class="link-icon" style="background-color: rgba(255, 0, 0, 0.2); color: #ff0000;">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-label">Youtube قناة 1</div>
+                        <div class="link-subtitle">Click to visit</div>
+                    </div>
+                    <i class="fas fa-bolt link-arrow"></i>
+                </div>
+            </a>
+
+            <a href="https://www.youtube.com/@M-Tech27_dev" class="link-card" target="_blank">
+                <div class="link-glow" style="background: linear-gradient(45deg, #ff0000, #ff0000);"></div>
+                <div class="link-inner" style="border-color: rgba(255, 0, 0, 0.3);">
+                    <div class="link-icon" style="background-color: rgba(255, 0, 0, 0.2); color: #ff0000;">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-label">Youtube قناة 2</div>
+                        <div class="link-subtitle">Click to visit</div>
+                    </div>
+                    <i class="fas fa-bolt link-arrow"></i>
+                </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/mohammad-ahmed-helmy-aboura-6ab350370/" class="link-card" target="_blank">
+                <div class="link-glow" style="background: linear-gradient(45deg, #0077b5, #0077b5);"></div>
+                <div class="link-inner" style="border-color: rgba(0, 119, 181, 0.3);">
+                    <div class="link-icon" style="background-color: rgba(0, 119, 181, 0.2); color: #0077b5;">
+                        <i class="fab fa-linkedin-in"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-label">LinkedIn</div>
+                        <div class="link-subtitle">Click to visit</div>
+                    </div>
+                    <i class="fas fa-bolt link-arrow"></i>
+                </div>
+            </a>
+
+            <a href="https://www.facebook.com/mohamed.ahmed.helmy.aboura" class="link-card" target="_blank">
+                <div class="link-glow" style="background: linear-gradient(45deg, #1877f2, #1877f2);"></div>
+                <div class="link-inner" style="border-color: rgba(24, 119, 242, 0.3);">
+                    <div class="link-icon" style="background-color: rgba(24, 119, 242, 0.2); color: #1877f2;">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-label">Facebook</div>
+                        <div class="link-subtitle">Click to visit</div>
+                    </div>
+                    <i class="fas fa-bolt link-arrow"></i>
+                </div>
+            </a>
+
+            <a href="https://github.com/GamePatchHub88/" class="link-card" target="_blank">
+                <div class="link-glow" style="background: linear-gradient(45deg, #ffffff, #ffffff);"></div>
+                <div class="link-inner" style="border-color: rgba(255, 255, 255, 0.3);">
+                    <div class="link-icon" style="background-color: rgba(255, 255, 255, 0.2); color: #ffffff;">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-label">GitHub</div>
+                        <div class="link-subtitle">Click to visit</div>
+                    </div>
+                    <i class="fas fa-bolt link-arrow"></i>
+                </div>
+            </a>
+
+            <a href="https://www.frontendmentor.io/profile/GamePatchHub88" class="link-card" target="_blank">
+                <div class="link-glow" style="background: linear-gradient(45deg, #00ff88, #00ff88);"></div>
+                <div class="link-inner" style="border-color: rgba(0, 255, 136, 0.3);">
+                    <div class="link-icon" style="background-color: rgba(0, 255, 136, 0.2); color: #00ff88;">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="link-content">
+                        <div class="link-label">Frontend Mentor</div>
+                        <div class="link-subtitle">Click to visit</div>
+                    </div>
+                    <i class="fas fa-bolt link-arrow"></i>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ramadan Card -->
+        <div class="ramadan-card">
+            <div class="ramadan-glow"></div>
+            <div class="ramadan-inner">
+                <h2 class="ramadan-title">
+                    <span style="font-size: 2.5rem;">🕌</span>
+                    زاوية رمضان المباركة
+                    <span style="font-size: 2.5rem;">🌙</span>
+                </h2>
+                <div class="ramadan-links">
+                    <a href="https://gamepatchhub88.github.io/Ramadan-Mubarak/" class="ramadan-link" target="_blank">
+                        <div class="ramadan-link-glow"></div>
+                        <div class="ramadan-link-inner">
+                            <span class="ramadan-emoji">🤲</span>
+                            <span class="ramadan-text">أدعية شهر رمضان المبارك</span>
+                        </div>
                     </a>
-                    <a href="https://www.youtube.com/@M-Tech11_dev" class="link-item y4" target="_blank">
-                        <i class="fab fa-youtube"></i> Youtube قناة 1
-                    </a>
-                    <a href="https://www.youtube.com/@M-Tech27_dev" class="link-item y4" target="_blank">
-                        <i class="fab fa-youtube"></i> Youtube قناة 2
-                    </a>
-                    <a href="https://www.linkedin.com/in/mohammad-ahmed-helmy-aboura-6ab350370/" class="link-item y3" target="_blank">
-                        <i class="fab fa-linkedin-in"></i> LinkedIn
-                    </a>
-                    <a href="https://www.facebook.com/mohamed.ahmed.helmy.aboura" class="link-item y6" target="_blank">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
-                    <a href="https://github.com/GamePatchHub88/" class="link-item y1" target="_blank">
-                        <i class="fab fa-github"></i> GitHub
-                    </a>
-                    <a href="https://www.frontendmentor.io/profile/GamePatchHub88" class="link-item y2" target="_blank">
-                        <i class="fas fa-code"></i> Frontend Mentor
+                    <a href="https://gamepatchhub88.github.io/Mohamed-AHmed-Helmy----/" class="ramadan-link" target="_blank">
+                        <div class="ramadan-link-glow"></div>
+                        <div class="ramadan-link-inner">
+                            <span class="ramadan-emoji">🌙</span>
+                            <span class="ramadan-text">تهنئة رمضان باسمي</span>
+                        </div>
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="main-card ramadan-card" style="margin-top: 30px; animation-delay: 0.5s;">
-            <div class="glow-layer"></div>
-            <div class="card-inner" style="padding: 20px;">
-                <h2 style="color: #ffd700; margin-bottom: 15px; font-size: 1.2rem;">
-                    <i class="fas fa-kaaba"></i> زاوية رمضان 🌙
-                </h2>
-                <div class="links-list">
-                    <a href="https://gamepatchhub88.github.io/Ramadan-Mubarak/" class="link-item y-ramadan" target="_blank">
-                        <i class="fas fa-pray"></i> أدعية شهر رمضان المبارك
-                    </a>
-                    <a href="https://gamepatchhub88.github.io/Mohamed-AHmed-Helmy----/" class="link-item y-greet" target="_blank">
-                        <i class="fas fa-envelope-open-text"></i> تهنئة رمضان باسمي
-                    </a>
-                </div>
-            </div>
+        <!-- Footer -->
+        <div class="footer">
+            <p>⚡ Powered by Epic Gaming Technology ⚡</p>
+            <p>© 2024 Mohamed Ahmed - All Rights Reserved</p>
         </div>
     </div>
+
+    <script>
+        // Mouse Glow Effect
+        const mouseGlow = document.getElementById('mouseGlow');
+        document.addEventListener('mousemove', (e) => {
+            mouseGlow.style.left = e.clientX + 'px';
+            mouseGlow.style.top = e.clientY + 'px';
+        });
+
+        // Generate Stars
+        const bgAnimation = document.getElementById('bgAnimation');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = (Math.random() * 4 + 2) + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            star.style.animationDelay = Math.random() * 2 + 's';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            bgAnimation.appendChild(star);
+        }
+
+        // XP Counter and Level System
+        let xp = 0;
+        let level = 1;
+        const xpCounter = document.getElementById('xpCounter');
+        const levelBadge = document.getElementById('levelBadge');
+
+        setInterval(() => {
+            xp++;
+            xpCounter.textContent = xp;
+            
+            if (xp > 0 && xp % 100 === 0) {
+                level++;
+                levelBadge.textContent = 'LEVEL ' + level;
+            }
+        }, 100);
+
+        // Skill Progress Animation
+        window.addEventListener('load', () => {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
+    </script>
 </body>
 </html>
